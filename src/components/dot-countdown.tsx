@@ -8,8 +8,8 @@ import { Button } from "@/components/ui/button";
 const DotCountdown = () => {
   const [timeLeft, setTimeLeft] = useState(100);
   const [isRunning, setIsRunning] = useState(false);
-  const timerRef = useRef(null);
-  const startTimeRef = useRef(null);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const startTimeRef = useRef<number | null>(null);
   
   const TOTAL_DOTS = 100;
   const TOTAL_TIME = 100;
@@ -28,6 +28,8 @@ const DotCountdown = () => {
       startTimeRef.current = Date.now() - ((TOTAL_TIME - timeLeft) * 1000);
       
       timerRef.current = setInterval(() => {
+        if (startTimeRef.current === null) return;
+
         const elapsed = Date.now() - startTimeRef.current;
         const newTimeLeft = Math.max(TOTAL_TIME - Math.floor(elapsed / 1000), 0);
         
@@ -54,13 +56,13 @@ const DotCountdown = () => {
     setIsRunning(prev => !prev);
   }, []);
 
-  const calculateDotOpacity = useCallback((index) => {
+  const calculateDotOpacity = useCallback((index: number): number => {
     const dotStartTime = TOTAL_TIME - (index + 1) * DOT_INTERVAL;
     return timeLeft <= dotStartTime ? 0.2 : 1;
   }, [timeLeft]);
 
   const dots = React.useMemo(() => (
-    [...Array(TOTAL_DOTS)].map((_, index) => {
+    [...Array(TOTAL_DOTS)].map((_, index: number) => {    
       const opacity = calculateDotOpacity(index);
       return (
         <div
