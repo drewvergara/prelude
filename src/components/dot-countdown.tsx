@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import Image from "next/image";
-import { Play, Pause, RefreshCw } from 'lucide-react';
+import { Pause, RefreshCw } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 
 const DotCountdown = () => {

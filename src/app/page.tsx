@@ -1,4 +1,3 @@
-import Image from "next/image";
 import DotCountdown from "@/components/dot-countdown";
 
 export default function Home() {
