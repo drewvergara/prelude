@@ -69,7 +69,7 @@ const DotCountdown = () => {
           key={index}
           className="aspect-square rounded-full transition-opacity duration-200"
           style={{
-            backgroundColor: 'white',
+            backgroundColor: '#ff0a64',
             opacity,
             transform: 'scale(0.15)'
           }}
